@@ -6,6 +6,14 @@
     </div>
 
     <div class="mt-6">
+        <div class="flex justify-between">
+            <div>
+
+            </div>
+            <div class="mr-2">
+                <input wire:model="active" type="checkbox" class="mr-2 leading-tight" />Active Only?
+            </div>
+        </div>
         <table class="table-auto w-full">
             <thead>
                 <tr>
