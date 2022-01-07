@@ -59,8 +59,13 @@
                     @if (!$active)
                     <td class="border px-4 py-2">{{ $item->status ? 'Active' : 'Not-active' }}</td>
                     @endif
-                    <td class="border px-4 py-2">Edit <x-jet-danger-button
-                            wire:click="confirmItemDeletion({{ $item->id }})" wire:loading.attr="disabled">
+                    <td class="border px-4 py-2">
+                        <x-jet-button class="bg-orange-500 hover:bg-orange-700"
+                            wire:click="confirmItemEdit({{ $item->id }})">
+                            Edit Item
+                        </x-jet-button>
+                        <x-jet-danger-button wire:click="confirmItemDeletion({{ $item->id }})"
+                            wire:loading.attr="disabled">
                             Delete
                         </x-jet-danger-button>
                     </td>
@@ -99,7 +104,7 @@
 
     <x-jet-dialog-modal wire:model="confirmingItemAdd">
         <x-slot name="title">
-            {{ __('Add Item') }}
+            {{ isset($this->item->id) ? 'Edit Item' : 'Add Item' }}
         </x-slot>
 
         <x-slot name="content">
@@ -115,7 +120,7 @@
             </div>
             <div class="col-span-6 sm:col-span-4 mt-4">
                 <label class="flex items-center">
-                    <input class="form-checkbox" type="checkbox" wire.model.defer="item.status" />
+                    <input class="form-checkbox" type="checkbox" wire:model.defer="item.status" />
                     <span class="ml-2 text-sm text-gray-600">Active</span>
             </div>
         </x-slot>

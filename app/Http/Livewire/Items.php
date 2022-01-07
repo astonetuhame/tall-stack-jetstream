@@ -85,14 +85,26 @@ class Items extends Component
         $this->confirmingItemAdd = true;
     }
 
+    public function confirmItemEdit(Item $item)
+    {
+        $this->item = $item;
+        $this->confirmingItemAdd = true;
+    }
+
     public function saveItem()
     {
         $this->validate();
-        auth()->user()->items()->create([
-            'name' => $this->item['name'],
-            'price' => $this->item['price'],
-            'status' => $this->item['status'] ?? 0
-        ]);
+
+        if (isset($this->item->id)) {
+            $this->item->save();
+        } else {
+            auth()->user()->items()->create([
+                'name' => $this->item['name'],
+                'price' => $this->item['price'],
+                'status' => $this->item['status'] ?? 0
+            ]);
+        }
+
 
         $this->confirmingItemAdd = false;
     }
