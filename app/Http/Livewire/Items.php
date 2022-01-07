@@ -13,9 +13,14 @@ class Items extends Component
     public $active;
 
     public $q;
+    public $sortBy = 'id';
+    public $sortAsc = true;
+
     protected $queryString = [
         'active' => ['except' => false],
-        'q' => ['except' => '']
+        'q' => ['except' => ''],
+        'sortBy' => ['except' => 'id'],
+        'sortAsc' => ['except' => true]
     ];
 
 
@@ -30,7 +35,8 @@ class Items extends Component
             })
             ->when($this->active, function ($query) {
                 return $query->active();
-            });
+            })
+            ->orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC');
 
         $query = $items->toSql();
         $items = $items->paginate(10);
@@ -44,5 +50,13 @@ class Items extends Component
     public function updatingq()
     {
         $this->resetPage();
+    }
+
+    public function sortBy($field)
+    {
+        if ($field == $this->sortBy) {
+            $this->sortAsc = !$this->sortAsc;
+        }
+        $this->sortBy = $field;
     }
 }
