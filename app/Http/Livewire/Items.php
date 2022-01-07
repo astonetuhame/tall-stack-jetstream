@@ -13,6 +13,10 @@ class Items extends Component
     public $active;
 
     public $q;
+    protected $queryString = [
+        'active' => ['except' => false],
+        'q' => ['except' => '']
+    ];
 
 
     public function render()
