@@ -4,11 +4,11 @@
     <div class="mt-8 text-2xl">
         Items
     </div>
-
+    {{ $query }}
     <div class="mt-6">
         <div class="flex justify-between">
             <div>
-
+                <input wire:model.debounce.500="q" type="search" placeholder="search">
             </div>
             <div class="mr-2">
                 <input wire:model="active" type="checkbox" class="mr-2 leading-tight" />Active Only?
